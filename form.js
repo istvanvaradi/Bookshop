@@ -1,15 +1,10 @@
 //set up today and tomorrow
 
-var tomorrow = new Date()
-tomorrow.setDate(new Date().getDate() + 1)
-let touse = tomorrow.toISOString()
+var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+var day = currentDate.getDate()
+var month = currentDate.getMonth() + 1
+var year = currentDate.getFullYear()
 
-//set date value//
-
-var start = document.getElementById('start')
-start.setAttribute('min', `${touse.split('T')[0]}`)
-
-//name
 function onChange() {
   let inputs = document.getElementsByClassName('form-control')
   let btn = document.getElementById('submit')
@@ -43,5 +38,50 @@ function onlyOneCheckBox() {
         this.checked = false
       }
     }
+  }
+}
+
+//individual valdation
+
+const form = document.getElementById('survey-form')
+const fName = document.getElementById('fName')
+const lName = document.getElementById('lName')
+const street = document.getElementById('street')
+const number = document.getElementById('number')
+const flatnum = document.getElementById('flatnum')
+const startDate = document.getElementById('start')
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  validateInputs()
+})
+
+const setSucces = (element) => {
+  const inputControl = element.parenElement
+  const errorDisplay = inputControl('.error')
+
+  errorDisplay.innerText = ' '
+  inputControl.classList.add('succes')
+  inputControl.classList.remove('error')
+}
+const setError = (element, message) => {
+  const inputControl = element.parenElement
+  const errorDisplay = inputControl.querySelector('error')
+
+  errorDisplay.innerText = message
+  inputControl.classList.add('error')
+  inputControl.classList.remove('succes')
+}
+
+const validateInputs = () => {
+  const fNameValue = fName.value.trim()
+  const streetValue = street.value.trim()
+  const numberValue = number.value.trim()
+  const flatnumValue = flatnum.value.trim()
+  if (fNameValue === ' ') {
+    setError(fName, 'Name is mandatory field made of US letters')
+  } else {
+    setSucces(fName)
   }
 }
