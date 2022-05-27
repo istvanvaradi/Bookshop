@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <script type="text/javascript"  src="index.js" defer></script>
         <script type="text/javascript"  src="form.js" defer></script>
  <!-- fonts -->
  <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,20 +20,19 @@
 
 <div class="container ">
 
-  <form id="survey-form"  >
+  <form id="survey-form" onchange="formCheck()">
     <div class="form-group">
-       <label id="name-label"   for="name">First Name</label>
+    <label id="name-label"   for="name">First Name</label>
     <input type="string"
         name="name"
         id="fName"
         class="form-control" 
         placeholder="Enter Your Name"
         minlength="4"
-        pattern="[a-zA-Z][a-zA-Z ]{2,}"
-        onchange="onChange()"
-        class="req"
-         required
+        onblur="nameFn()"
+        required
          ></ipnut>
+       <div class="error"></div>
     </div>
   <div class="form-group">
        <label id="Last Name" for="lastName"  >Last Name</label>
@@ -44,11 +42,10 @@
         minlength="5"
         class="form-control" 
         placeholder="Last name"
-        onchange="onChange()"
-        pattern="[a-zA-Z][a-zA-Z ]{2,}"
-        class="req"
-           required
+       onblur="sname()"
+        required
          ></ipnut>
+         <div class="error"></div>
     </div>
 
     <div class="form-group">
@@ -57,49 +54,46 @@
         name="street"
         id="street"
         class="form-control" 
-        placeholder="Enter your street name"
-        minlength="5"
-        pattern="[a-zA-Z][A-Za-z0-9]{2,}"
-        onchange="onChange()"
+        placeholder="Enter your street name(letter US,and numbers)"
+        min="5"
+        onblur="streetCheck()"
         class="req"
          required
          ></ipnut>
+    <div class="error"></div>
     </div>
-  <div class="form-group">
+
       <div class="form-group">
-       <label id="name-label"   for="name">Street Number</label>
+       <label id="name-label"   for="name">House Number</label>
     <input type="number"
         name="street"
-        min="1"
-        id="name"
+        id="housenumber"
         class="form-control" 
-        placeholder="Enter your street name"
-        minlength="5"
-        pattern="[a-zA-Z][A-Za-z0-9]{2,}"
-        onchange="onChange()"
+        placeholder="House number(positive number)"
+        onblur="houseNum()"
         class="req"
          required
          ></ipnut>
+         <div class="error"></div>
     </div>
-      <div class="form-group">
       <div class="form-group">
        <label id="name-label"   for="name">Flat number</label>
     <input type="number"
     min="1"
         name="flat-number"
-        id="name"
+        id="flatnum"
         class="form-control" 
-        placeholder="Enter your street name"
-        minlength="5"
-        onchange="onChange()"
-        class="req"
+        placeholder="Enter your flat number(positive intiger)"
+        onblur="flatNum()"
          required
          ></ipnut>
+         <div class="error"></div>
     </div>
   <div class="form-group">
     <label for="start">Delivery Date:</label>
 <input type="date" id="start" name="delivery"
-       min=""  onchange="onChange()" class="form-control" required>       
+       min=""  onchange="onChange()" class="form-control" required> 
+       <div class="error"> </div>      
     </div>
 <div id="checkboxgroup">
     <h2 style="color: aliceblue; margin-top: 2rem;">Choose two of our Gifts</h2>
@@ -124,6 +118,8 @@
       </div>
     </div>
     <div >
-     <button  type="submit" id="submit" disabled class="btn btn-danger">Submit
+     <button  type="submit" id="submit" disabled class="btn btn-danger" type="submit">Submit</button>
     </div>  
+ </div>  
+
 </html>

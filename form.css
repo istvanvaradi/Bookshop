@@ -24,8 +24,6 @@ p,label, h1{
 color:white;
 align-self:flex;
 padding:0.2rem;
-
-
 }
 
 body{
@@ -54,7 +52,6 @@ background: var(--color-darkblue-alpha);
 }
 label {
   display: flex;
-  align-items: center;
   font-size: 1.125rem;
   margin-top: 1rem;
 }
@@ -66,7 +63,8 @@ p {
   align-self:center;
 }
 
-.input-radio,
+
+
 .input-checkbox {
   display: inline-block;
   margin-right: 0.625rem;
@@ -79,13 +77,13 @@ p {
 .btn, .input-textarea{display:block;
 width:100%;}
 .form-group {
-  margin: auto
+  margin: auto;
   padding: 0.25rem;
  
 }
 
 
-input[type="checkbox" i]{
+.input[type="checkbox" i]{
   padding-bottom: 30px;
 }
 
@@ -136,3 +134,31 @@ button:disabled{
   color: #666666;
   opacity: 0.1;
 }
+
+.form-group input:focus {
+    outline: 0;
+}
+
+
+.success{
+    background-color: #09c372;
+}
+
+.form-group.error input {
+    border-color: #ff3860;
+}
+
+.form-group  .error {
+    color: #ff3860;
+    font-size: 19px;
+    height: 18px;
+}
+
+.input-radio,
+.input-checkbox {
+  display: inline-block;
+  margin-right: 0.625rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+

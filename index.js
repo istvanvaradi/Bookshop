@@ -1,16 +1,14 @@
-var colors = {
-  text: '#000000',
-  background: '#aaaaaa',
-  something_else: 'blue',
-}
+document.createElement
 
 const fragment = new DocumentFragment()
 const header = document.createElement('h1')
-const text = document.createTextNode('Best bookstore ever')
 const main = document.getElementById('main')
 var totalSum = document.createElement('h4')
+document.body.appendChild(fragment)
 
+console.log(main)
 var cartArray = 0
+main.appendChild(fragment)
 
 //adding class
 main.setAttribute('class', 'color')
@@ -24,7 +22,6 @@ main.appendChild(header)
 
 var global
 const cartSlide = document.createElement('aside')
-
 cartSlide.setAttribute('class', 'cartSlide')
 main.appendChild(cartSlide)
 let btnsum = document.createElement('button')
@@ -35,6 +32,7 @@ btnsum.onclick = () => {
 }
 cartSlide.appendChild(btnsum)
 cartSlide.appendChild(totalSum)
+
 //here creating everything from fetched data
 fetch('books.json') //path to the file with json data
   .then((response) => {
@@ -43,6 +41,8 @@ fetch('books.json') //path to the file with json data
   .then((data) => (global = data))
   .then((data) => {
     for (const element of global) {
+      let iterableId = 1
+      iterableId++
       const card = document.createElement('div')
       const myPara1 = document.createElement('h2')
       const bookTitle = document.createElement('h5')
@@ -52,9 +52,6 @@ fetch('books.json') //path to the file with json data
       const description = document.createElement('p')
       const price = document.createElement('h2')
       price.innerHTML = `${element['price']} EUR`
-      let inc = 1
-      inc++
-      console.log(inc)
       link.setAttribute('id', 'seemore')
       //set attributes
       button.onclick = click
@@ -103,15 +100,25 @@ fetch('books.json') //path to the file with json data
         }
       }
 
-      //Drag On Cardss
+      Array.from(cardsTodrag).forEach(function (element) {
+        neededIdtocard++
+        element.setAttribute('id', `tempId${neededIdtocard}`)
+      })
+
       card.setAttribute('draggable', 'true')
+      cartSlide.setAttribute('draggable', 'true')
       bookImg.setAttribute('draggable', 'false')
-      card.ondrag = () => {
-        e.preventDefault()
-        let target = e.target //sima egyenlosegjel kell ide
-        target.ondrag = click()
-        let first = target.childNodes[0]
+      // Drag On Cardss
+
+      card.ondragstart = (ev) => {
+        let target = ev.target
+        ev.dataTransfer.setData('text/plain', target.id)
       }
+
+      cartSlide.ondragover = (e) => {
+        e.preventDefault()
+      }
+
       //drag ends here
       function click(evt) {
         let title = evt.target.previousSibling
@@ -123,14 +130,17 @@ fetch('books.json') //path to the file with json data
         let button = document.createElement('button')
         let cartPrice = document.createElement('h2')
         let smallTitle = document.createElement('p')
+        let smallprice = document.createElement('p')
         button.innerHTML = 'X'
         imageCart.src = img
         smallTitle.innerHTML = title.innerHTML
         cartPrice = price.innerHTML
+        smallprice.innerHTML = price.innerHTML
         authorCart.innerHTML = author.innerHTML
         cartCard.appendChild(authorCart)
         cartCard.appendChild(imageCart)
         cartCard.appendChild(smallTitle)
+        cartCard.appendChild(smallprice)
         cartCard.appendChild(button)
         //SUM and CARD
         cartArray += Number(cartPrice.slice(0, cartPrice.length - 4))
@@ -150,4 +160,12 @@ fetch('books.json') //path to the file with json data
       }
     }
   })
-localStorage.setItem('final', cartArray)
+cartSlide.ondrop = (e) => {
+  e.preventDefault()
+  let element = e.dataTransfer.getData('text/plain')
+  element = document.getElementById(element)
+  element = element.getElementsByTagName('button')
+  element[0].click()
+}
+let cardsTodrag = cardCollection.getElementsByClassName('card')
+let neededIdtocard = 0
