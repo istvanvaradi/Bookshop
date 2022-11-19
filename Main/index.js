@@ -1,18 +1,13 @@
-document.createElement
-
-const fragment = new DocumentFragment()
+var fragment = new DocumentFragment()
 const header = document.createElement('h1')
 const main = document.getElementById('main')
 var totalSum = document.createElement('h4')
-document.body.appendChild(fragment)
-
-console.log(main)
 var cartArray = 0
-main.appendChild(fragment)
 
+main.appendChild(fragment)
 //adding class
-main.setAttribute('class', 'color')
-//creates
+main.appendChild(fragment) //creates
+document.body.appendChild(fragment)
 const cardCollection = document.createElement('div')
 cardCollection.setAttribute('class', 'cardCollection')
 
@@ -28,7 +23,7 @@ let btnsum = document.createElement('button')
 btnsum.setAttribute('id', 'sumbtn')
 btnsum.innerHTML = 'Confirm'
 btnsum.onclick = () => {
-  location.href = 'form.html'
+  location.href = '../Form/form.html'
 }
 cartSlide.appendChild(btnsum)
 cartSlide.appendChild(totalSum)
